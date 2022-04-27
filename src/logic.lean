@@ -706,28 +706,62 @@ theorem forall_as_neg_exists_converse :
 begin
   intro Hn_exist_nP,
   intro u,
-  exfalso,
+  by_contradiction Hboom,
   apply Hn_exist_nP,
   existsi u,
-  intro Hu,
+  assumption,
 end
 
 theorem exists_as_neg_forall_converse :
   ¬(∀x, ¬P x) → (∃x, P x)  :=
 begin
-  sorry,
+  intro Hn_forall_nP,
+  by_contradiction Hboom,
+  apply Hn_forall_nP,
+  intro u,
+  intro Hu,
+  apply Hboom,
+  existsi u,
+  assumption,
 end
 
 theorem forall_as_neg_exists_law :
   (∀x, P x) ↔ ¬(∃x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  intro H_all_P,
+  intro H_exist_nP,
+  cases H_exist_nP with u HP,
+  have Hu := H_all_P u,
+  contradiction,
+
+   intro Hn_exist_nP,
+  intro u,
+  by_contradiction Hboom,
+  apply Hn_exist_nP,
+  existsi u,
+  assumption,
 end
 
 theorem exists_as_neg_forall_law :
   (∃x, P x) ↔ ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  intro H_exist_P,
+  cases H_exist_P with u HP,
+  intro H_all_nP,
+  have Hu := H_all_nP u,
+  apply Hu,
+  assumption,
+
+  intro Hn_forall_nP,
+  by_contradiction Hboom,
+  apply Hn_forall_nP,
+  intro u,
+  intro Hu,
+  apply Hboom,
+  existsi u,
+  assumption,
 end
 
 
@@ -738,7 +772,8 @@ end
 theorem exists_conj_as_conj_exists :
   (∃x, P x ∧ Q x) → (∃x, P x) ∧ (∃x, Q x)  :=
 begin
-  sorry,
+  intro H_exist_p_and_q,
+  
 end
 
 theorem exists_disj_as_disj_exists :
